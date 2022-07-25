@@ -1,0 +1,106 @@
+# LEARNING REF:
+
+Eloquent: Getting Started (https://laravel.com/docs/9.x/eloquent,Learnvern,Geekyshows)
+
+It is used For Minimum data.
+
+# IMP COMMANDS:
+
+Eloquent and QB can also be used combinely.
+
+-->create model with migration  :
+php artisan make:model Student --migration
+
+-->or model with migration and controller php artisan make:model Student -mc 
+
+-->creating only model
+php artisan make:model ModelName
+    
+Model is used for interaction with db.
+
+Like query builder we have to just write model name ahead
+
+It follows snake case eg: product_car as ProductCar 
+
+php artisan db:seed --class=AdminSeeder     used for specific seeding
+
+
+# Larvel - ONE TO ONE REALATIONSHIP (hasOne)
+
+prevents us from writing joins queries
+EG:
+  if we have cust & order table and we have to want detail of cust and order details so EO -> cust_id wil be foreign from order tbl
+
+php artisan make:model modelName --all
+
+it creates:
+  model,factory,migration,seeder,request,controller,policy
+2 table = 2 model
+2 seeder
+1 controller
+2 migrations
+
+But we want single brand details with respected single dealers details is an EG of ONE TO ONE REALATIONSHIP
+
+in migration creating table in up()
+without faker also we can geneerate fake data
+
+if we have diff colname and foreign key is not established then
+return $this->hasOne(dealers::class,foreignKey:'',localKey:'');
+
+EG:
+
+b_id  | Name          d_id  |  b_id   | Name  
+                       
+1     |  A             1    |   1     |   x 
+2     |  B             2    |   2     |   c
+3     |  C             3    |   3     |   v
+
+Single Dealers Single Brands
+
+
+
+# Larvel - ONE TO MANY REALATIONSHIP (hasMany)
+
+EG:
+
+b_id  | Name          d_id  |  b_id   | Name  
+                       
+1     |  A             1    |   1     |   x 
+2     |  B             2    |   2     |   c
+3     |  C             3    |   1     |   v
+
+Single Dealers Multiple Brands
+
+
+
+# Larvel - MANY TO MANY REALATIONSHIP (belongsToMany)
+
+EG:
+
+b_id  | Name          d_id  |  b_id   | Name       
+                       
+1     |  A             1    |   1     |   x 
+2     |  B             2    |   2     |   c
+3     |  C             3    |   1     |   v
+
+
+id    |  b_id   | d_id 
+                       
+1     |  1      |   2  
+2     |  1      |   3 
+3     |  2      |   3 
+
+Multiple Dealers Multiple Brands
+
+
+# Larvel - HAS ONE THROUGH REALATIONSHIP (belongsToMany)
+
+
+kiske through uski 1 entry he
+
+means if we does entry of 1st table we want data of 3rd table using 2nd table
+
+php artisan make:model ModelNAme -mc
+
+Above command will create migraction,model and controller
