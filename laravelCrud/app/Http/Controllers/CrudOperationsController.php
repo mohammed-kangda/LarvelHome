@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\CrudOperations;
 use Illuminate\Http\Request;
 
@@ -22,9 +23,13 @@ class CrudOperationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    # displaying rtegistration form to user
+
     public function create()
     {
-        //
+        $countries = Country::all();
+        return view('Template.registration',compact('countries'));
     }
 
     /**

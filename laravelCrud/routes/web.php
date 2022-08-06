@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CrudOperationsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/register', function () {
-    return view('Template.registration');
-});
+// Route::get('/register', function () {
+//     return view('Template.registration');
+// });
+
+Route::get('/crud/create',[CrudOperationsController::class,'create']);

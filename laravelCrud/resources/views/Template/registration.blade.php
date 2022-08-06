@@ -2,8 +2,8 @@
 
    @section('content')
 
-       
-     
+
+
     <form class="container table-bordered">
         <div class="form-group">
             <label for="exampleInputEmail1">First Name: </label>
@@ -21,18 +21,33 @@
             <label for="exampleInputEmail1">Contact Number: </label>
             <input type="number" name="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name">
         </div>
-        <div class="form-check form-check-inline">
-            <label for="exampleInputEmail1">Gender : </label>
+
+        {{-- @php
+        echo "<pre>";
+        print_r($countries->toArray());
+     @endphp --}}
+        <div class="form-group">
+            <select id="inputState" class="form-control">
+              <option>Select Country</option>
+              @foreach ($countries as $country)
+                 <option value="{{$country->id}}">{{$country->countries}}</option>
+              @endforeach
+            </select>
+        </div>
+
+
+        <label for="exampleInputEmail1">Gender : </label>
+        <div class="form-check form-check-inline form-group">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
             <label class="form-check-label" for="inlineRadio1">Male</label>
         </div>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
             <label class="form-check-label" for="inlineRadio2">Female</label>
-        </div>
+        </div><br>
 
+        <label for="exampleInputEmail1">Hobbies : </label>
         <div class="form-check form-check-inline">
-            <label for="exampleInputEmail1">Hobbies : </label>
             <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
             <label class="form-check-label" for="inlineCheckbox1">Web</label>
         </div>
