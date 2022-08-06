@@ -15,7 +15,8 @@ class CrudOperationsController extends Controller
      */
     public function index()
     {
-        //
+        $data = CrudOperations::with('getCountry')->get();
+        return view('Template.index',compact('data'));
     }
 
     /**
@@ -40,7 +41,11 @@ class CrudOperationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requestData =  $request->except(['_token']);
+        $imgName = $request->profile->getClientOriginalName();
+        $request->profile->move(public_path('profiles'),$imgName);
+        $store = CrudOperations::create($requestData);
+        return redirect()->route('crud.index');
     }
 
     /**

@@ -10,4 +10,10 @@ class Country extends Model
     use HasFactory;
     protected $table = 'countries';
     public $timestamps = false;
+
+
+    public function country()
+    {
+        return $this->hasOne(CrudOperations::class);
+    }
 }

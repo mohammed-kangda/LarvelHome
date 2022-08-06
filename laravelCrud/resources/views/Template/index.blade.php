@@ -1,5 +1,6 @@
-@extends('layouts.user_layout');
-<button type="button" class="btn btn-primary">Rgistration</button>
+@extends('layouts.user_layout')
+@section('content')
+<button type="button" class="btn btn-primary mt-3 mb-3"><a class="text-light" href="{{route('crud.create')}}">Registration</a></button>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -13,21 +14,34 @@
                 <th scope="col">Address</th>
                 <th scope="col">Country</th>
                 <th scope="col">Profile</th>
+                <th colspan="3">Actions</th>
             </tr>
         </thead>
+@php
+    echo "<pre>";
+    print_r($data->toArray());
+@endphp
+
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            @foreach ($data as  $info)
+                <tr>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{$info->first_name}}</td>
+                    <td>{{$info->last_name}}</td>
+                    <td>{{$info->email}}</td>
+                    <td>{{$info->contact}}</td>
+                    <td>{{$info->gender}}</td>
+                    <td>{{$info->hobbies}}</td>
+                    <td>{{$info->address}}</td>
+                    <td>{{$info->profile}}</td>
+                    <td>{{$info->getCountry->countries}}</td>
+                    <td>
+                        <a href="{{route('crud.show',['id' => $info->id])}}" class="btn btn-primary">Show</a>
+                        <a href="{{route('crud.edit',['id' => $info->id])}}" class="btn btn-success">Update</a>
+                        <a href="{{route('crud.delete',['id' => $info->id])}}" class="btn btn-warning">Delete</a>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </body>
@@ -36,3 +50,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </html>
+@endsection
