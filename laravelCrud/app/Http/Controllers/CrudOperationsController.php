@@ -43,8 +43,11 @@ class CrudOperationsController extends Controller
     {
         $requestData =  $request->except(['_token']);
         $imgName = $request->profile->getClientOriginalName();
-        $request->profile->move(public_path('profiles'),$imgName);
+
+        $path =  $request->profile->move(public_path('profiles'),$imgName);
+        $requestData['profile'] = $imgName;
         $store = CrudOperations::create($requestData);
+
         return redirect()->route('crud.index');
     }
 
@@ -54,9 +57,14 @@ class CrudOperationsController extends Controller
      * @param  \App\Models\CrudOperations  $crudOperations
      * @return \Illuminate\Http\Response
      */
-    public function show(CrudOperations $crudOperations)
+
+    // displaying data to user
+
+    public function show(CrudOperations $id)
     {
-        //
+        $countries = Country::all();
+        // print_r($id->hobbies);
+        return view('Template.show',compact('countries','id'));
     }
 
     /**

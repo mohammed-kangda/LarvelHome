@@ -35,4 +35,9 @@ class CrudOperations extends Model
     public function getCountry(){
         return $this->belongsTo(Country::class,'country','id');
     }
+
+    public function getHobbiesAttribute($value)
+    {
+        return explode(',',$value);
+    }
 }

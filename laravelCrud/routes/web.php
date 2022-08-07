@@ -21,3 +21,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/crud/create',[CrudOperationsController::class,'create'])->name('crud.create');
 Route::post('/crud',[CrudOperationsController::class,'store'])->name('crud.store');
 Route::get('/index',[CrudOperationsController::class,'index'])->name('crud.index');
+
+Route::get('/show/{id}',[CrudOperationsController::class,'show'])->name('crud.show');
