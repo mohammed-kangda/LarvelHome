@@ -15,7 +15,7 @@ class CrudOperationsController extends Controller
      */
     public function index()
     {
-        $data = CrudOperations::with('getCountry')->get();
+        $data = CrudOperations::with('getCountry')->paginate('5');
         return view('Template.index',compact('data'));
     }
 
@@ -43,10 +43,9 @@ class CrudOperationsController extends Controller
     {
         $requestData =  $request->except(['_token']);
         $imgName = $request->profile->getClientOriginalName();
-
-        $path =  $request->profile->move(public_path('profiles'),$imgName);
+        $request->profile->move(public_path('profiles'),$imgName);
         $requestData['profile'] = $imgName;
-        $store = CrudOperations::create($requestData);
+        $data = CrudOperations::create($requestData);
 
         return redirect()->route('crud.index');
     }
@@ -56,7 +55,7 @@ class CrudOperationsController extends Controller
      *
      * @param  \App\Models\CrudOperations  $crudOperations
      * @return \Illuminate\Http\Response
-     */
+    */
 
     // displaying data to user
 
@@ -73,9 +72,10 @@ class CrudOperationsController extends Controller
      * @param  \App\Models\CrudOperations  $crudOperations
      * @return \Illuminate\Http\Response
      */
-    public function edit(CrudOperations $crudOperations)
+    public function edit(CrudOperations $id)
     {
-        //
+        $countries = Country::all();
+        return view('Template.update',compact('countries','id'));
     }
 
     /**
@@ -85,9 +85,28 @@ class CrudOperationsController extends Controller
      * @param  \App\Models\CrudOperations  $crudOperations
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CrudOperations $crudOperations)
+    public function update(Request $request, CrudOperations $id)
     {
-        //
+       echo "<pre>";
+       print_r($id->toArray());
+       print_r($request->except(['_token'])); // new
+
+       $id->first_name = $request->first_name;
+       $id->last_name = $request->last_name;
+       $id->email = $request->email;
+       $id->contact = $request->contact;
+       $id->gender = $request->gender;
+       $id->hobbies = $request->hobbies;
+       $id->address = $request->address;
+       $id->country = $request->country;
+       if(isset($request->profile)){
+            $imgName = $request->profile->getClientOriginalName();
+            $request->profile->move(public_path('profiles'),$imgName);
+            $id->profile = $imgName;
+       }
+       $id->save();
+       return redirect()->route('crud.index');
+
     }
 
     /**
@@ -96,8 +115,11 @@ class CrudOperationsController extends Controller
      * @param  \App\Models\CrudOperations  $crudOperations
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CrudOperations $crudOperations)
+    public function destroy(CrudOperations $id)
     {
-        //
+        echo "<pre>";
+        $data = CrudOperations::find($id->id)->delete();
+        print_r($data);
+        return redirect()->route('crud.index');
     }
 }

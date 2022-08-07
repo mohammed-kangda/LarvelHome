@@ -23,3 +23,14 @@ Route::post('/crud',[CrudOperationsController::class,'store'])->name('crud.store
 Route::get('/index',[CrudOperationsController::class,'index'])->name('crud.index');
 
 Route::get('/show/{id}',[CrudOperationsController::class,'show'])->name('crud.show');
+
+
+Route::get('/crud/{id}/edit',[CrudOperationsController::class,'edit'])->name('crud.edit');
+
+
+Route::put('/update/{id}',[CrudOperationsController::class,'update'])->name('crud.update');
+
+
+Route::get('/delete/{id}',[CrudOperationsController::class,'destroy'])->name('crud.delete');
+
+

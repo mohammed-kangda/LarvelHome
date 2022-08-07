@@ -20,13 +20,8 @@
                 <th colspan="3">Actions</th>
             </tr>
         </thead>
-{{-- @php
-    echo "<pre>";
-    print_r($data->toArray());
-@endphp --}}
-
         <tbody>
-            @foreach ($data as  $info)
+            @foreach ($data as $info)
                 <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$info->first_name}}</td>
@@ -34,19 +29,24 @@
                     <td>{{$info->email}}</td>
                     <td>{{$info->contact}}</td>
                     <td>{{$info->gender}}</td>
-                    <td>{{$info->hobbies}}</td>
+                    <td>
+                        @foreach ($info->hobbies as $hobby)
+                            {{$hobby}},
+                        @endforeach
+                   </td>
                     <td>{{$info->address}}</td>
                     <td>{{$info->profile}}</td>
                     <td>{{$info->getCountry->countries}}</td>
                     <td>
                         <a href="{{route('crud.show',['id' => $info->id])}}" class="btn btn-primary mb-3">Show</a>
-                        <a href="" class="btn btn-success mb-3">Update</a>
-                        <a href="" class="btn btn-warning mb-3">Delete</a>
+                        <a href="{{route('crud.edit',['id' => $info->id])}}" class="btn btn-success mb-3">Update</a>
+                        <a href="{{route('crud.delete',['id' => $info->id])}}" class="btn btn-danger mb-3">Delete</a>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    {!! $data->links() !!}
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
