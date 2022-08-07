@@ -10,7 +10,6 @@ class CrudOperations extends Model
 {
     use HasFactory;
     protected $table = "crud_operations";
-    // public $timestamps = false;
 
     protected $fillable = [
         'first_name',
@@ -31,6 +30,8 @@ class CrudOperations extends Model
     public function setHobbiesAttribute($value){
         $this->attributes['hobbies'] = implode(',',$value);
     }
+
+    // one to one relationship
 
     public function getCountry(){
         return $this->belongsTo(Country::class,'country','id');

@@ -45,6 +45,7 @@ class CrudOperationsController extends Controller
         $imgName = $request->profile->getClientOriginalName();
         $request->profile->move(public_path('profiles'),$imgName);
         $requestData['profile'] = $imgName;
+
         $data = CrudOperations::create($requestData);
 
         return redirect()->route('crud.index');
@@ -88,7 +89,7 @@ class CrudOperationsController extends Controller
     public function update(Request $request, CrudOperations $id)
     {
        echo "<pre>";
-       print_r($id->toArray());
+       print_r($id->toArray()); // old
        print_r($request->except(['_token'])); // new
 
        $id->first_name = $request->first_name;
@@ -117,9 +118,7 @@ class CrudOperationsController extends Controller
      */
     public function destroy(CrudOperations $id)
     {
-        echo "<pre>";
         $data = CrudOperations::find($id->id)->delete();
-        print_r($data);
         return redirect()->route('crud.index');
     }
 }
