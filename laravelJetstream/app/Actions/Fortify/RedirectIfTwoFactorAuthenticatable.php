@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Actions\Fortify;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Validation\ValidationException;

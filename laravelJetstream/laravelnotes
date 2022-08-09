@@ -78,3 +78,53 @@ config -> auth.php
     paste it in app->actions->fortify
 
 11) Creating Middleware
+     providers -> RouteServiceprovider.php
+
+        // For Admin logged in the redirect
+
+        public static function redirectTo($guard){
+            return $guard.'/dashboard';
+        }
+
+      middleware->RedirectIfAuthenticated.php
+
+      in handle()
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
+                return redirect($guard.'/dashboard');
+            }
+        }
+
+        craete middleware: AdminRedirectIfAuthenticated.php
+
+        copy RedirectIfAuthenticated & paste in AdminRedirectIfAuthenticated.php
+
+        register in kernel:
+        The application's route middleware.
+
+
+12) create folder Responses && LoginResponse.php under http
+    copy LoginResponse.php(laravel->fortify->resource->contracts) and paste in LoginResponse.php
+
+    middleware [LoginResponse.php]
+
+    <?php
+    [customization]
+    // namespace App\Http\Responses;
+
+    use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+
+    class LoginResponse implements LoginResponseContract
+    {
+        //
+
+        public function toResponse($request){
+            return $request->wantsJson()
+                ? response()->json(['two_factor' => false])
+                : redirect()->intended(config('admin/dashboard'));
+        }
+    }
+
+ 13) Changing logout redirection:
+
+    Admin
