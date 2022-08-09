@@ -23,4 +23,53 @@ php artisan storage:link
 # multi auth system ( admin and user )
 
 
-php artisan make:controller AdminController
+1) php artisan make:controller AdminController
+
+2) create admin table same as user with model
+
+3) php artisan make:factory AdminFactory  [insert records]
+
+4) creating guards providersa and passwd reset
+config -> auth.php
+
+5) finding vender -> laravel -> http -> controller -> AuthenticatedSessionController.php
+
+6) In providers -> fortifyserviceprovider.php
+
+    // Register any application services.
+
+    public function register()
+    {
+        $this->app->when([AdminController::class,AttemptToAuthenticate::class,
+        RedirectIfTwoFactorAuthenticatable::class])
+        ->needs(StatefulGuard::class)
+        ->give(function(){
+           return Auth::guard('admin');
+        });
+    }
+
+   [change namespaces and class names]
+7) Crearting Guards file in app -> Guards -> AdminStatefulGuards.php
+
+    copy code src-.framework StatefulGuard Interface & passed in AdminStatefulGuards.php
+
+
+8) Copy AuthenticatedSessionController.php and paste in
+   AdminController
+
+9) creating routes;
+
+    Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']],function(){
+        Route::get('/login',[AdminController::class,'loginForm']);
+        Route::post('/login',[AdminController::class,'store'])->name('admin.store');
+    });
+
+
+    Route::middleware(['auth:sanctum,admin','verified'])->get('/admin/dashboard',function(){
+        return view('dashboard');
+    })->name('dashboard');
+
+
+    Route::middleware(['auth:sanctum,web','verified'])->get('/dashboard',function(){
+        return view('dashboard');
+    })->name('dashboard');
