@@ -1,3 +1,26 @@
-Install:
+# Install
+
 composer require laravel/jetstream
 php artisan jetstream:install livewire
+npm install
+npm run dev
+php artisan migrate
+
+
+# file structure
+
+config->fortify->features (visible user info func)
+
+config->jetstream->features (profile picture)
+
+
+# profile pic issue
+
+env -> APP_URL=http://127.0.0.1:8000
+php artisan storage:link
+
+
+# multi auth system ( admin and user )
+
+
+php artisan make:controller AdminController
