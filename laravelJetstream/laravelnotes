@@ -57,7 +57,7 @@ config -> auth.php
 8) Copy AuthenticatedSessionController.php and paste in
    AdminController
 
-9) creating routes;
+9) creating routes:
 
     Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']],function(){
         Route::get('/login',[AdminController::class,'loginForm']);
@@ -73,3 +73,8 @@ config -> auth.php
     Route::middleware(['auth:sanctum,web','verified'])->get('/dashboard',function(){
         return view('dashboard');
     })->name('dashboard');
+
+10) copy 2 files from vender->laravel->fortify->src->AttempttpoAuthenticate.php & RedirectifTwoFactorAuthenticatable.php
+    paste it in app->actions->fortify
+
+11) Creating Middleware
