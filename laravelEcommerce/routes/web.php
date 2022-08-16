@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FetchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+# task
+
+Route::get('/index',[FetchController::class,'index']);

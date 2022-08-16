@@ -1,0 +1,19 @@
+select product_name,products_price from products_detail,
+products where products.id = products_detail.products_id
+and products.price <> products_detail.products_price;
+
+
+select * from products_detail, products where products.id = products_detail.products_id and products.price <> products_detail.products_price;
+
+
+
+
+
+select product_name,products_price from products_detail JOIN products
+where
+products.id = products_detail.products_id and products.price <> products_detail.products_price;
+
+
+
+
+https://readerstacks.com/how-to-use-join-in-laravel-eloquent-query-with-example/
